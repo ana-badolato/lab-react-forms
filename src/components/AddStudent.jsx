@@ -3,42 +3,34 @@ import { useState } from "react";
 function AddStudent(props) {
   const {students, setStudents}= props;
 
-  const [fullName, setFullName] = useState("");
-  const [image, setImage] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [program, setProgram] = useState("");
-  const [graduationYear, setGraduationYear] = useState(2023);
-  const [graduated, setGraduated] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    image: "",
+    phone: "",
+    email: "",
+    program: "",
+    graduationYear: 2023,
+    graduated: false
+  });
 
-  const handleFullNameChange = (event) => setFullName(event.target.value);
-  const handleImageChange = (event) => setImage(event.target.value);
-  const handlePhoneChange = (event) => setPhone(event.target.value);
-  const handleEmailChange = (event) => setEmail(event.target.value);
-  const handleProgramChange = (event) => setProgram(event.target.value);
-  const handleGraduationYearChange = (event) => setGraduationYear(event.target.value);
-  const handleGraduatedChange = (event) => setGraduated(event.target.checked);
+
+  const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value
+    }));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newStudent = {
-      fullName: fullName,
-      image: image,
-      phone: phone,
-      email: email,
-      program:program,
-      graduationYear: graduationYear,
-      graduated: false
-    };
+    const newStudent = { ...formData, graduated: formData.graduated };
 
-    setStudents( (currentStateValue) => {
-      console.log(currentStateValue)
-
-      const clone = [...currentStateValue]
-      clone.unshift(newStudent)
-      return clone
-    })
-
+    setStudents((currentStateValue) => {
+      const clone = [...currentStateValue];
+      clone.unshift(newStudent);
+      return clone;
+    });
   };
 
   return (
@@ -47,29 +39,29 @@ function AddStudent(props) {
         <div>
           <label>
             Full Name
-            <input name="fullName" type="text" placeholder="Full Name" onChange={handleFullNameChange}/>
+            <input name="fullName" type="text" placeholder="Full Name" onChange={handleInputChange} value={formData.fullName}/>
           </label>
 
           <label>
             Profile Image
-            <input name="image" type="url" placeholder="Profile Image" onChange={handleImageChange}/>
+            <input name="image" type="url" placeholder="Profile Image" onChange={handleInputChange} value={formData.image}/>
           </label>
 
           <label>
             Phone
-            <input name="phone" type="tel" placeholder="Phone" onChange={handlePhoneChange}/>
+            <input name="phone" type="tel" placeholder="Phone" onChange={handleInputChange} value={formData.phone}/>
           </label>
 
           <label>
             Email
-            <input name="email" type="email" placeholder="Email" onChange={handleEmailChange}/>
+            <input name="email" type="email" placeholder="Email" onChange={handleInputChange}value={formData.email}/>
           </label>
         </div>
 
         <div>
           <label>
             Program
-            <select name="program" onChange={handleProgramChange}>
+            <select name="program" onChange={handleInputChange} value={formData.program}>
               <option value="">-- None --</option>
               <option value="Web Dev">Web Dev</option>
               <option value="UXUI">UXUI</option>
@@ -87,13 +79,14 @@ function AddStudent(props) {
               maxLength={4}
               min={2023}
               max={2030}
-              onChange={handleGraduationYearChange}
+              onChange={handleInputChange}
+              value={formData.graduationYear}
             />
           </label>
 
           <label>
             Graduated
-            <input name="graduated" type="checkbox" onChange={handleGraduatedChange}/>
+            <input name="graduated" type="checkbox" onChange={handleInputChange} value={formData.graduated}/>
           </label>
 
           <button type="submit">Add Student</button>
