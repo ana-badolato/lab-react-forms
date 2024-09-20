@@ -25,12 +25,35 @@ function App() {
   const handleGraduationYearChange = (event) => setGraduationYear(event.target.value);
   const handleGraduatedChange = (event) => setGraduated(event.target.checked);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newStudent = {
+      fullName: fullName,
+      image: image,
+      phone: phone,
+      email: email,
+      program:program,
+      graduationYear: graduationYear,
+      graduated: false
+    };
+
+    setStudents( (currentStateValue) => {
+      console.log(currentStateValue)
+
+      const clone = [...currentStateValue]
+      clone.unshift(newStudent)
+      return clone
+    })
+
+  };
+
+
   return (
     <div className="App pt-20">
       <Navbar />
 
       {/* FORM */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <span>Add a Student</span>
         <div>
           <label>
