@@ -9,14 +9,13 @@ import studentsData from "./assets/students.json";
 function App() {
   const [students, setStudents] = useState(studentsData);
 
-  const [ text, setText] = useState("");
-  const [ url, setUrl] = useState("");
-  const [ tel, setTel] = useState("");
-  const [ email, setEmail] = useState("");
-  //const [ password, setPassword] = useState("");
-  const [ checkbox, setCheckbox] = useState(false);
-  const [ select, setSelect] = useState("firstOption");
-  const [ number, setNumber] = useState(0);
+  const [fullName, setFullName] = useState("");
+  const [image, setImage] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [program, setProgram] = useState("");
+  const [graduationYear, setGraduationYear] = useState(2023);
+  const [graduated, setGraduated] = useState(false);
 
   return (
     <div className="App pt-20">
