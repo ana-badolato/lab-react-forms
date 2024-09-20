@@ -9,6 +9,14 @@ import studentsData from "./assets/students.json";
 function App() {
   const [students, setStudents] = useState(studentsData);
 
+  const [ text, setText] = useState("");
+  const [ url, setUrl] = useState("");
+  const [ tel, setTel] = useState("");
+  const [ email, setEmail] = useState("");
+  //const [ password, setPassword] = useState("");
+  const [ checkbox, setCheckbox] = useState(false);
+  const [ select, setSelect] = useState("firstOption");
+  const [ number, setNumber] = useState(0);
 
   return (
     <div className="App pt-20">
